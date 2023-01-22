@@ -37,7 +37,14 @@ router.route("/").post(async (req, res) => {
 
     res.status(200).json({ photo: image });
   } catch (error) {
-    console.error(error);
+    if (error.response) {
+      console.log(error.response.status);
+      console.log(error.response.data);
+    } else {
+      console.log(error.message);
+    }
+
+    // console.error(error?.response.data.error.message);
     res.status(500).send(error?.response.data.error.message);
   }
 });
